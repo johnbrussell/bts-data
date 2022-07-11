@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_07_10_202122) do
     t.index ["time_period_id"], name: "index_counts_on_time_period_id"
   end
 
-  create_table "files_processed", force: :cascade do |t|
+  create_table "processed_files", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
