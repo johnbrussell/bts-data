@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_10_191943) do
+ActiveRecord::Schema.define(version: 2022_07_10_202122) do
 
   create_table "aircraft", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,12 @@ ActiveRecord::Schema.define(version: 2022_07_10_191943) do
     t.index ["destination_airport_id"], name: "index_counts_on_destination_airport_id"
     t.index ["origin_airport_id"], name: "index_counts_on_origin_airport_id"
     t.index ["time_period_id"], name: "index_counts_on_time_period_id"
+  end
+
+  create_table "files_processed", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "time_periods", force: :cascade do |t|
