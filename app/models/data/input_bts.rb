@@ -72,7 +72,7 @@ class Data::InputBts < ApplicationRecord
     bts_id = if partial_bts_id.to_i >= 10
       partial_bts_id.to_s
     else
-      (partial_bts_id + 100).to_s[1..-1]
+      (partial_bts_id.to_i + 100).to_s[1..-1]
     end
     group.to_s + bts_id
   end
