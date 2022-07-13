@@ -2,7 +2,7 @@
 
 The Department of Transportation publishes data about how many seats and passengers every airline carries on every flight it operates.  (The data also include cargo capacity and load, but this project only focuses on seats and passengers.)
 
-This project, at present, is just a database.  I still need to build a front end.
+This project contains a primitive front end backed by a database.
 
 ### DB 28 Segment Data
 
@@ -22,3 +22,5 @@ This project runs on rails.  Once you have it set up, you'll need to put the dat
 1. First, go to the console and run `Data::InputAircraft.run` to load the CSV of aircraft data into the database.
 1. Then, download the DB28 CSV file(s) of your choice and put them in the `data/bts` directory in this project.  Once they are there, you can run `Data::InputBts.run` in the rails console and the files will be
 inserted into the database.  Using the .asc file extensions that come with the file downloads (as of July 2022) is fine.
+
+To view the data in your browser, turn on the rails server and visit the page on localhost.  The primitive front end should be fairly intuitive.
