@@ -15,8 +15,8 @@ class Counts < ApplicationRecord
   belongs_to :time_period
 
   def self.meeting_specific_criteria(start_month, start_year, end_month, end_year, airline, aircraft, origin_airport, destination_airport, groups)
-    start_time = if start_year.present? && start_month.present? then (start_year * 100 + start_month).to_s else nil end
-    end_time = if end_year.present? && end_month.present? then (end_year * 100 + end_month).to_s else nil end
+    start_time = if start_year.present? && start_month.present? then (start_year.to_i * 100 + start_month.to_i).to_s else nil end
+    end_time = if end_year.present? && end_month.present? then (end_year.to_i * 100 + end_month.to_i).to_s else nil end
 
     query = Counts
       .joins(:time_period)
