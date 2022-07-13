@@ -1,1 +1,32 @@
-<h1>BTS</h1>
+<h1>Select filters before viewing routes</h1>
+
+<%= form_with url: "/show", method: :get do |form| %>
+  <p>Start month</p>
+  <%= form.select :from_month, 1..12, include_blank: true %>
+  <%= form.select :from_year, 1990..Date.today.year, include_blank: true %>
+  <p>End month</p>
+  <%= form.select :end_month, 1..12, include_blank: true %>
+  <%= form.select :end_year, 1990..Date.today.year, include_blank: true %>
+  Group by time period?
+  <%= form.check_box :group_by_time_period %>
+  <p>Airline</p>
+  <%= form.select :airline, @airlines, include_blank: true %>
+  Group by airline?
+  <%= form.check_box :group_by_airline %>
+  <p>Departure airport</p>
+  <%= form.select :departure_airport, @airports, include_blank: true %>
+  Group by departure airport?
+  <%= form.check_box :group_by_departure_airport %>
+  <p>Arrival airport</p>
+  <%= form.select :arrival_airport, @airports, include_blank: true %>
+  Group by arrival airport?
+  <%= form.check_box :group_by_arrival_airport %>
+  <p>Aircraft type</p>
+  <%= form.select :aircraft_type, @aircraft, include_blank: true %>
+  Group by aircraft?
+  <%= form.check_box :group_by_aircraft %>
+
+  <h3>
+    <%= form.submit "Search" %>
+  </h3>
+<% end %>

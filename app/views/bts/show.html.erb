@@ -1,0 +1,33 @@
+<h1>Results</h1>
+<p>
+  Filters engaged:
+  <ul>
+  <% if @start_year.present? && @start_month.present? %>
+    <li><%= "No earlier than #{@start_month}/#{@start_year}" %></li>
+  <% end %>
+  <% if @end_year.present? && @end_month.present? %>
+    <li><%= "No later than #{@end_month}/#{@end_year}" %></li>
+  <% end %>
+  <% if @departure_airport.present? %>
+    <li><%= "Departures from #{@departure_airport.iata}" %></li>
+  <% end %>
+  <% if @arrival_airport.present? %>
+    <li><%= "Arrivals at #{@arrival_airport.iata}" %></li>
+  <% end %>
+  <% if @airline.present? %>
+    <li><%= "Flights operated by #{@airline.iata}" %></li>
+  <% end %>
+  <% if @aircraft_type.present? %>
+    <li><%= "Flights on a #{@aircraft_type.name}" %></li>
+  <% end %>
+  </ul>
+</p>
+
+<p>
+  Results:
+  <ul>
+    <% @results.each do |result| %>
+      <li><%= result.display(@groups) %></li>
+    <% end %>
+  </ul>
+</p>
