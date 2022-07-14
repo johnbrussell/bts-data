@@ -25,6 +25,10 @@
   <%= form.select :aircraft_type, @aircraft, include_blank: true %>
   Group by aircraft?
   <%= form.check_box :group_by_aircraft %>
+  <p>
+    Filter for routes operated at least weekly?
+    <%= form.check_box :filter_for_weekly %>
+  </p>
 
   <h3>
     <%= form.submit "Search" %>
