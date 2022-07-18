@@ -61,7 +61,7 @@ class Data::InputBts < ApplicationRecord
   end
 
   def self.get_aircraft_id(aircraft, group, bts_id)
-    if aircraft.include?(bts_id.to_i)
+    if aircraft.include?(bts_id.to_i) && bts_id.to_i >= 100
       aircraft[bts_id.to_i]
     else
       aircraft[self.get_aircraft_id_from_group_and_partial_bts_id(group, bts_id).to_i]
@@ -71,10 +71,17 @@ class Data::InputBts < ApplicationRecord
   def self.get_aircraft_id_from_group_and_partial_bts_id(group, partial_bts_id)
     bts_id = if partial_bts_id.to_i >= 10
       partial_bts_id.to_s
-    else
+    elsif partial_bts_id < 100
       (partial_bts_id.to_i + 100).to_s[1..-1]
+    else
+      partial_bts_id.to_s[1..-1]
     end
-    group.to_s + bts_id
+
+    if group.to_i == 0
+      bts_id
+    else
+      group.to_s + bts_id
+    end
   end
 
   def self.get_airline_id(airlines, iata)
