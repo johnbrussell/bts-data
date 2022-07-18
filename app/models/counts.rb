@@ -14,7 +14,7 @@ class Counts < ApplicationRecord
   belongs_to :destination_airport, class_name: 'Airport'
   belongs_to :time_period
 
-  def self.meeting_specific_criteria(start_month, start_year, end_month, end_year, airline, aircraft, origin_airport, destination_airport, groups, filter_for_weekly, exclude_covid)
+  def self.meeting_specific_criteria(start_month, start_year, end_month, end_year, airline, aircraft, origin_airport, destination_airport, groups, filter_for_weekly, exclude_covid, exclude_freight)
     start_time = if start_year.present? && start_month.present? then (start_year.to_i * 100 + start_month.to_i).to_s else nil end
     end_time = if end_year.present? && end_month.present? then (end_year.to_i * 100 + end_month.to_i).to_s else nil end
 
@@ -52,6 +52,10 @@ class Counts < ApplicationRecord
     if exclude_covid
       covid = (202003..202105).to_a.map(&:to_s)
       query = query.where("time_periods.name NOT IN (?)", covid)
+    end
+
+    if exclude_freight
+      query = query.where("seats > 0")
     end
 
     group_ases = groups.map { |g| g.gsub('.', '_') }

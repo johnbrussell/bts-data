@@ -16,6 +16,7 @@ class BtsController < ApplicationController
     @aircraft_type = if params[:aircraft_type].present? then Aircraft.find(params[:aircraft_type]) else nil end
     @filter_for_weekly = params[:filter_for_weekly] == "1"
     @exclude_covid = params[:exclude_covid] == "1"
+    @exclude_freight = params[:exclude_freight] == "1"
 
     @airlines = Airline.select_options
     @airports = Airport.select_options
@@ -28,6 +29,19 @@ class BtsController < ApplicationController
     if params[:group_by_airline] == "1" then @groups << "airlines.iata" end
     if params[:group_by_aircraft] == "1" then @groups << "aircraft.name" end
 
-    @results = Counts.meeting_specific_criteria(@start_month, @start_year, @end_month, @end_year, @airline&.id, @aircraft_type&.id, @departure_airport&.id, @arrival_airport&.id, @groups, @filter_for_weekly, @exclude_covid)
+    @results = Counts.meeting_specific_criteria(
+      @start_month,
+      @start_year,
+      @end_month,
+      @end_year,
+      @airline&.id,
+      @aircraft_type&.id,
+      @departure_airport&.id,
+      @arrival_airport&.id,
+      @groups,
+      @filter_for_weekly,
+      @exclude_covid,
+      @exclude_freight,
+    )
   end
 end
