@@ -29,6 +29,10 @@
     Filter for routes operated at least weekly?
     <%= form.check_box :filter_for_weekly %>
   </p>
+  <p>
+    Exclude height of the COVID-19 pandemic?
+    <%= form.check_box :exclude_covid %>
+  </p>
 
   <h3>
     <%= form.submit "Search" %>
