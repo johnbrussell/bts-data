@@ -27,7 +27,7 @@ class Data::InputBts < ApplicationRecord
       records = []
 
       CSV.foreach(f, headers: false, col_sep: "|") do |d|
-        if d[DATA_LOCATION[:seats]].to_i > 0 && d[DATA_LOCATION[:departures_scheduled]].to_i > 0
+        if d[DATA_LOCATION[:departures_scheduled]].to_i > 0
           aircraft_id = self.get_aircraft_id(aircraft, d[DATA_LOCATION[:aircraft_group]], d[DATA_LOCATION[:aircraft_bts_id]])
           airline_id = self.get_airline_id(airlines, d[DATA_LOCATION[:airline_iata]])
           origin_airport_id = self.get_airport_id(airports, d[DATA_LOCATION[:origin_iata]], d[DATA_LOCATION[:origin_name]])
