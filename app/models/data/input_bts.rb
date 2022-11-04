@@ -71,7 +71,7 @@ class Data::InputBts < ApplicationRecord
   def self.get_aircraft_id_from_group_and_partial_bts_id(group, partial_bts_id)
     bts_id = if partial_bts_id.to_i >= 10
       partial_bts_id.to_s
-    elsif partial_bts_id < 100
+    elsif partial_bts_id.to_i < 100
       (partial_bts_id.to_i + 100).to_s[1..-1]
     else
       partial_bts_id.to_s[1..-1]
