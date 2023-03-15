@@ -19,7 +19,7 @@ that data set is the old Transtats database: https://www.transtats.bts.gov/DL_Se
 
 This project runs on rails.  Once you have it set up, you'll need to put the data into the database.  
 
-1. First, go to the console and run `Data::InputAircraft.run` to load the CSV of aircraft data into the database.
+1. First, go to the console and run `Data::InputAircraft.run` to load the CSV of aircraft data into the database.  The primary source for this dataset is https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=GDD&QO_fu146_anzr=N8vn6v10+f722146+gnoyr5.
 1. Then, download the DB28 CSV file(s) of your choice and put them in the `data/bts` directory in this project.  Once they are there, you can run `Data::InputBts.run` in the rails console and the files will be
 inserted into the database.  Using the .asc file extensions that come with the file downloads (as of July 2022) is fine.
 
