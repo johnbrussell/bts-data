@@ -74,7 +74,15 @@ class Counts < ApplicationRecord
   end
 
   def display(groups)
-    route = if groups.include?("origin_airport.iata") || groups.include?("destination_airport.iata") then "#{origin_airport_iata}-#{destination_airport_iata}: " else "" end
+    route = if groups.include?("origin_airport.iata") && groups.include?("destination_airport.iata")
+      "#{origin_airport_iata}-#{destination_airport_iata}: "
+    elsif groups.include?("origin_airport.iata")
+      "#{origin_airport_iata}: "
+    elsif groups.include?("destination_airport.iata")
+      "#{destination_airport_iata}: "
+    else
+      ""
+    end
     time_period = if groups.include?("time_periods.name") then "#{time_periods_name}: " else "" end
     airline = if groups.include?("airlines.iata") then "#{airlines_iata}: " else "" end
     aircraft = if groups.include?("aircraft.name") then "#{aircraft_name}: " else "" end
