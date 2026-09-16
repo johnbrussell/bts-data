@@ -103,6 +103,8 @@ GEM
     minitest (5.16.2)
     msgpack (1.5.3)
     nio4r (2.5.8)
+    nokogiri (1.13.6-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
     public_suffix (4.0.7)
@@ -173,7 +175,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.4)
+    sqlite3 (1.7.3-arm64-darwin)
+    sqlite3 (1.7.3-x86_64-linux)
     thor (1.2.1)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -204,6 +207,7 @@ GEM
     zeitwerk (2.6.0)
 
 PLATFORMS
+  arm64-darwin-25
   x86_64-linux
 
 DEPENDENCIES
@@ -218,7 +222,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
   spring
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 1.7)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)
@@ -226,7 +230,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.1.7p261
 
 BUNDLED WITH
    2.2.29
