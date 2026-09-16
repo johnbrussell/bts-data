@@ -6,7 +6,7 @@ This project contains a primitive front end backed by a database.
 
 ### DB 28 Segment Data
 
-The data set this project's goal is to elucidate is the DB 28 Segment Data, currently available here: https://www.bts.gov/browse-statistical-products-and-data/bts-publications/data-bank-28ds-t-100-domestic-segment-data.
+The data set this project's goal is to elucidate is the DB 28 Segment Data, currently available [here](https://www.bts.gov/browse-statistical-products-and-data/bts-publications/data-bank-28ds-t-100-domestic-segment-data) for domestic data and [here](https://www.bts.gov/browse-statistical-products-and-data/bts-publications/•-data-bank-28is-t-100-and-t-100f) for international (US carriers only, though).
 
 This data provides the total available seats and passengers carried on every route by every airline.  This project throws out all data other than that for scheduled flights with passenger seats available.  
 The data comes aggregated by operating airline and airplane type on a per-month basis.  Unfortunately, the data does not come with a key to disambiguate the marketing airline for regional flights operated on
