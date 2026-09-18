@@ -59,8 +59,9 @@ class Data::InputBts < ApplicationRecord
           end
         end
 
-        if records.length > BATCH_SIZE
+        if records.length >= BATCH_SIZE
           Counts.insert_all! records
+          records = []
         end
       end
 
