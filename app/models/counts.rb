@@ -14,6 +14,8 @@ class Counts < ApplicationRecord
   belongs_to :destination_airport, class_name: 'Airport'
   belongs_to :time_period
 
+  ROW_LIMIT = 10000
+
   def self.meeting_specific_criteria(start_month, start_year, end_month, end_year, airline, aircraft, origin_airport, destination_airport, groups, filter_for_weekly, exclude_covid, exclude_freight)
     start_time = if start_year.present? && start_month.present? then (start_year.to_i * 100 + start_month.to_i).to_s else nil end
     end_time = if end_year.present? && end_month.present? then (end_year.to_i * 100 + end_month.to_i).to_s else nil end
@@ -71,6 +73,7 @@ class Counts < ApplicationRecord
 
     query
       .select(*(selections + ["sum(departures_scheduled) AS total_departures_scheduled", "sum(departures_performed) AS total_departures_performed", "sum(seats) AS total_seats", "sum(passengers) AS total_passengers"]))
+      .limit(ROW_LIMIT)
   end
 
   def display(groups)
