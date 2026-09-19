@@ -1,6 +1,6 @@
 require 'csv'
 
-BATCH_SIZE = 1000
+BATCH_SIZE = 100
 COMBI_CONFIG_TYPE = '3'
 COMBI_SUFFIX = 'COMBI'
 VALID_SERVICE_TYPES = ['F', 'G']
@@ -41,31 +41,34 @@ class Data::InputBts < ApplicationRecord
           destination_airport_id = self.get_airport_id(airports, d[DATA_LOCATION[:destination_iata]], d[DATA_LOCATION[:destination_name]])
           time_period_id = self.get_time_period(time_periods, d[DATA_LOCATION[:month]], d[DATA_LOCATION[:year]])
 
-          unless Counts.exists?(aircraft_id: aircraft_id, airline_id: airline_id, origin_airport_id: origin_airport_id, destination_airport_id: destination_airport_id, time_period_id: time_period_id)
-            time = Time.now
-            records << {
-              aircraft_id: aircraft_id,
-              airline_id: airline_id,
-              origin_airport_id: origin_airport_id,
-              destination_airport_id: destination_airport_id,
-              time_period_id: time_period_id,
-              departures_performed: d[DATA_LOCATION[:departures_performed]],
-              departures_scheduled: d[DATA_LOCATION[:departures_scheduled]],
-              seats: d[DATA_LOCATION[:seats]],
-              passengers: d[DATA_LOCATION[:passengers]],
-              created_at: time,
-              updated_at: time,
-            }
-          end
+          time = Time.now
+          records << {
+            aircraft_id: aircraft_id,
+            airline_id: airline_id,
+            origin_airport_id: origin_airport_id,
+            destination_airport_id: destination_airport_id,
+            time_period_id: time_period_id,
+            departures_performed: d[DATA_LOCATION[:departures_performed]],
+            departures_scheduled: d[DATA_LOCATION[:departures_scheduled]],
+            seats: d[DATA_LOCATION[:seats]],
+            passengers: d[DATA_LOCATION[:passengers]],
+            created_at: time,
+            updated_at: time,
+          }
         end
 
         if records.length >= BATCH_SIZE
-          Counts.insert_all! records
+          tuples_to_check = records.map{ |r| [r[:aircraft_id], r[:airline_id], r[:origin_airport_id], r[:destination_airport_id], r[:time_period_id]]}
+          bind_placeholders = Array.new(tuples_to_check.size, "(?, ?, ?, ?, ?)").join(", ")
+          existing_records = Counts.where("(aircraft_id, airline_id, origin_airport_id, destination_airport_id, time_period_id) in (#{bind_placeholders})", *(tuples_to_check.flatten)).pluck(:aircraft_id, :airline_id, :origin_airport_id, :destination_airport_id, :time_period_id)
+          records = records.filter{ |r| existing_records.exclude?([r[:aircraft_id], r[:airline_id], r[:origin_airport_id], r[:destination_airport_id], r[:time_period_id]]) }
+
+          Counts.insert_all! records if records.length > 0
           records = []
         end
       end
 
-      Counts.insert_all! records if records
+      Counts.insert_all! records if records.length > 0
       ProcessedFile.create!(name: f)
     end
   end
