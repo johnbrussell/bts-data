@@ -43,5 +43,6 @@ class BtsController < ApplicationController
       @exclude_covid,
       @exclude_freight,
     )
+    @is_limited = @results.length >= Counts::ROW_LIMIT
   end
 end
