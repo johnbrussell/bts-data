@@ -106,7 +106,7 @@ class Data::InputBts < ApplicationRecord
     CSV.foreach(file, headers: false, col_sep: "|") do |d|
       if d[DATA_LOCATION[:departures_scheduled]].to_i > 0 && VALID_SERVICE_TYPES.include?(d[DATA_LOCATION[:service_type]])
         aircraft_id = self.get_aircraft_id(aircraft, d[DATA_LOCATION[:aircraft_group]], d[DATA_LOCATION[:aircraft_bts_id]], d[DATA_LOCATION[:aircraft_configuration_type]])
-        airline_id = self.get_airline_id(airlines, d[DATA_LOCATION[:airline_iata]])
+        airline_id = self.get_airline_id(airlines, d[DATA_LOCATION[:airline_iata]].split(" ")[0])
         origin_airport_id = self.get_airport_id(airports, d[DATA_LOCATION[:origin_iata]], d[DATA_LOCATION[:origin_name]])
         destination_airport_id = self.get_airport_id(airports, d[DATA_LOCATION[:destination_iata]], d[DATA_LOCATION[:destination_name]])
         time_period_id = self.get_time_period(time_periods, d[DATA_LOCATION[:month]], d[DATA_LOCATION[:year]])
